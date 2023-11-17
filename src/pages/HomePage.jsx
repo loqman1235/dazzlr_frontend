@@ -10,9 +10,9 @@ const HomePage = () => {
   const { userPosts, status, feed } = useSelector((state) => state.post);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchPostsAsync(user.userHandler));
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchPostsAsync(user.userHandler));
+  // }, [dispatch]);
 
   useEffect(() => {
     dispatch(fetchFeedPostsThunk());
@@ -29,7 +29,7 @@ const HomePage = () => {
     <>
       <div className="w-full md:w-[60%] relative pb-20">
         {/* Feed Header */}
-        <div className="w-full z-20 p-5 border-b border-b-black/10 dark:border-b-white/10 bg-[#FEFFFE]/80 dark:bg-[#0A0E28]/80 backdrop-blur-lg sticky top-0">
+        <div className="w-full z-20 p-5 border-b border-b-black/10 dark:border-b-white/10 bg-[#FEFFFE]/80 dark:bg-[#101010]/80 backdrop-blur-lg sticky top-0">
           <h2 className="font-bold text-xl">Home</h2>
         </div>
         <div className="p-5 w-full flex items-start gap-4 border-b border-b-black/10 dark:border-b-white/10">
@@ -37,7 +37,7 @@ const HomePage = () => {
         </div>
         {status === "pending" &&
           [1, 2, 3, 4].map((index) => <SkeletonPost key={index} />)}
-        {status === "fulfilled" && feed !== 0 ? (
+        {status === "fulfilled" && feed.length !== 0 ? (
           feed.map((post) => <Post key={post._id} {...post} />)
         ) : (
           <div className="p-5 flex gap-4 items-center justify-center ">

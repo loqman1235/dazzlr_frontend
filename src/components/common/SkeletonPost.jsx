@@ -13,11 +13,11 @@ import { useSelector } from "react-redux";
 const SkeletonPost = () => {
   const { isDarkMode } = useSelector((state) => state.theme);
   return (
-    <div className="p-5 flex gap-4 items-start border-b-black/10 border-b-[0.1px] hover:bg-black/5 dark:hover:bg-white/5 transition cursor-pointer dark:border-b-white/10">
+    <div className="p-5 flex gap-4 items-start border-b-black/10 border-b-[0.1px] hover:bg-black/5 dark:hover:bg-white/5 transition cursor-pointer dark:border-b-[#f3f5f726]">
       {/* Avatar */}
       <Skeleton
-        baseColor={isDarkMode ? "#1C233C" : "#E0E0E0"}
-        highlightColor={isDarkMode ? "#27334D" : "#F5F5F5"}
+        baseColor={isDarkMode ? "#1a1a1a" : "#E0E0E0"}
+        highlightColor={isDarkMode ? "#262626" : "#F5F5F5"}
         className="w-10 h-10 rounded-full"
       />
       {/* Post Details */}
@@ -28,26 +28,26 @@ const SkeletonPost = () => {
           <div className="flex flex-col gap-1">
             <div className="flex items-center gap-2">
               <Skeleton
-                baseColor={isDarkMode ? "#1C233C" : "#E0E0E0"}
-                highlightColor={isDarkMode ? "#27334D" : "#F5F5F5"}
+                baseColor={isDarkMode ? "#1a1a1a" : "#E0E0E0"}
+                highlightColor={isDarkMode ? "#262626" : "#F5F5F5"}
                 width={120}
               />
               <span className="text-[#536471] dark:text-[#A0A0A0] text-[15px] flex items-center gap-2">
                 <Skeleton
-                  baseColor={isDarkMode ? "#1C233C" : "#E0E0E0"}
-                  highlightColor={isDarkMode ? "#27334D" : "#F5F5F5"}
+                  baseColor={isDarkMode ? "#1a1a1a" : "#E0E0E0"}
+                  highlightColor={isDarkMode ? "#262626" : "#F5F5F5"}
                   width={60}
                 />
                 <Skeleton
-                  baseColor={isDarkMode ? "#1C233C" : "#E0E0E0"}
-                  highlightColor={isDarkMode ? "#27334D" : "#F5F5F5"}
+                  baseColor={isDarkMode ? "#1a1a1a" : "#E0E0E0"}
+                  highlightColor={isDarkMode ? "#262626" : "#F5F5F5"}
                   width={80}
                   className="rounded-full"
                 />
                 <span className="text-xs">&#x2022;</span>
                 <Skeleton
-                  baseColor={isDarkMode ? "#1C233C" : "#E0E0E0"}
-                  highlightColor={isDarkMode ? "#27334D" : "#F5F5F5"}
+                  baseColor={isDarkMode ? "#1a1a1a" : "#E0E0E0"}
+                  highlightColor={isDarkMode ? "#262626" : "#F5F5F5"}
                   width={30}
                 />
               </span>
@@ -61,14 +61,14 @@ const SkeletonPost = () => {
         {/* Post Content */}
         <span className="text-[15px] leading-6 w-full">
           <Skeleton
-            baseColor={isDarkMode ? "#1C233C" : "#E0E0E0"}
-            highlightColor={isDarkMode ? "#27334D" : "#F5F5F5"}
+            baseColor={isDarkMode ? "#1a1a1a" : "#E0E0E0"}
+            highlightColor={isDarkMode ? "#262626" : "#F5F5F5"}
             count={4}
           />
         </span>
 
         {/* Post CTAs */}
-        <div className="w-full flex items-center justify-between mt-5">
+        {/* <div className="w-full flex items-center justify-between mt-5">
           <button className="post-btn hover:bg-[#4CAF50]/10 hover:text-[#4CAF50]">
             <BiUpvote size={20} />
           </button>
@@ -84,7 +84,7 @@ const SkeletonPost = () => {
           <button className="post-btn hover:bg-teal-400/10 hover:text-teal-400">
             <BiShare size={20} />
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

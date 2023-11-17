@@ -17,7 +17,8 @@ const SuggestedProfileItem = ({ username, userHandle, image, isVerified }) => {
         {/* Username */}
         <div>
           <Link className="text-[14px] font-bold flex items-center gap-1 hover:underline">
-            {username} {isVerified && <VerifiedBadge />}
+            {username}{" "}
+            {isVerified && <VerifiedBadge size={"small"} type="personal" />}
           </Link>
           <p className="text-[14px] text-[#536471] dark:text-[#A0A0A0]">
             {userHandle}

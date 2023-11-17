@@ -35,17 +35,17 @@ const suggestedProfilesData = [
   },
   {
     id: 5,
-    username: "Malak",
-    userHandle: "@malak",
-    image:
-      "https://scontent.fczl2-2.fna.fbcdn.net/v/t39.30808-1/384115666_347269291280204_2615027445168736349_n.jpg?stp=dst-jpg_s200x200&_nc_cat=103&ccb=1-7&_nc_sid=fe8171&_nc_ohc=tQW-3wsFWZQAX82Xec-&_nc_ht=scontent.fczl2-2.fna&oh=00_AfACma00hD463Iyq66JQjEVwZBi9YIv1VIbw-jSeLzV6iw&oe=6529AD5F",
+    username: "Travis Scott",
+    userHandle: "@traviscott",
+    image: "https://i1.sndcdn.com/avatars-000701366305-hu9f0i-t500x500.jpg",
     isVerified: true,
   },
 ];
 
 const SuggestedProfiles = () => {
   return (
-    <div className="mb-10 bg-[#F6F9F8] dark:bg-white/5 p-5 rounded-2xl">
+    //  <div className="mb-10 bg-[#F6F9F8] dark:bg-white/5 p-5 rounded-2xl">
+    <div className="mb-12">
       {/* Header */}
       <div className="w-full flex items-center justify-between mb-5">
         <h3 className="font-bold text-xl capitalize">Profiles to follow</h3>

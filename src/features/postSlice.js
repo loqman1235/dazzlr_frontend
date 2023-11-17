@@ -4,6 +4,8 @@ import axios from "axios";
 const initialState = {
   feed: [],
   userPosts: [],
+  post: null,
+  postStatus: "idle",
   status: "idle",
   error: null,
   postModalHidden: true,
@@ -72,6 +74,25 @@ export const fetchFeedPostsThunk = createAsyncThunk(
   }
 );
 
+export const fetchPostThunk = createAsyncThunk(
+  "post/fetchPost",
+  async (postId, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/posts/post/${postId}`,
+        { withCredentials: true }
+      );
+      if (response.status === 200) {
+        return response.data.post;
+      } else {
+        return rejectWithValue({ error: "Error fetching post" });
+      }
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
 const postSlice = createSlice({
   name: "post",
   initialState: initialState,
@@ -117,6 +138,18 @@ const postSlice = createSlice({
       })
       .addCase(fetchFeedPostsThunk.rejected, (state, { payload }) => {
         state.status = "rejected";
+        state.error = payload;
+      })
+      .addCase(fetchPostThunk.pending, (state) => {
+        state.error = null;
+        state.postStatus = "pending";
+      })
+      .addCase(fetchPostThunk.fulfilled, (state, { payload }) => {
+        state.postStatus = "fulfilled";
+        state.post = payload;
+      })
+      .addCase(fetchPostThunk.rejected, (state, { payload }) => {
+        state.postStatus = "rejected";
         state.error = payload;
       });
   },

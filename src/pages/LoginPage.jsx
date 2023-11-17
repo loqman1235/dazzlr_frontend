@@ -51,10 +51,10 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="w-full h-screen flex items-center justify-center bg-[#FEFFFE] dark:bg-[#0A0E28]/80">
+    <div className="w-full h-screen flex items-center justify-center bg-[#FEFFFE] dark:bg-[#101010]/80">
       {/* Register Container */}
       <div className="w-[480px] p-6 rounded-2xl bg-white dark:bg-white/5 shadow-lg">
-        <h2 className="text-2xl font-bold text-[#0A0E28] dark:text-white mb-4">
+        <h2 className="text-2xl font-bold text-[#101010] dark:text-white mb-4">
           Sign In
         </h2>
 
@@ -68,7 +68,7 @@ const LoginPage = () => {
               <div>
                 <label
                   htmlFor="email"
-                  className="text-sm font-semibold mb-2 block text-[#0A0E28] dark:text-white"
+                  className="text-sm font-semibold mb-2 block text-[#101010] dark:text-white"
                 >
                   Email
                 </label>
@@ -89,7 +89,7 @@ const LoginPage = () => {
               <div>
                 <label
                   htmlFor="password"
-                  className="text-sm font-semibold mb-2 block text-[#0A0E28] dark:text-white"
+                  className="text-sm font-semibold mb-2 block text-[#101010] dark:text-white"
                 >
                   Password
                 </label>
@@ -103,7 +103,7 @@ const LoginPage = () => {
                   />
                   {/* Show/hide password button */}
                   <div
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-[#333333] hover:text-[#0A0E28] dark:text-[#A0A0A0] dark:hover:text-white transition cursor-pointer"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-[#333333] hover:text-[#101010] dark:text-[#A0A0A0] dark:hover:text-white transition cursor-pointer"
                     onClick={(e) => setIsPassHidden(!isPassHidden)}
                   >
                     {isPassHidden ? (
@@ -131,7 +131,7 @@ const LoginPage = () => {
         </Formik>
 
         <div className="mt-4">
-          <p className="text-[#0A0E28] dark:text-white text-sm">
+          <p className="text-[#101010] dark:text-white text-sm">
             Don't have an account?{" "}
             <Link to="/register" className="text-[#1D9AF1] hover:underline">
               Sign Up

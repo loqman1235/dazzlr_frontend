@@ -15,8 +15,8 @@ const SkeletonProfileDetails = () => {
     <div className="w-full">
       {/* Profile Cover */}
       <Skeleton
-        baseColor={isDarkMode ? "#1C233C" : "#E0E0E0"}
-        highlightColor={isDarkMode ? "#27334D" : "#F5F5F5"}
+        baseColor={isDarkMode ? "#1a1a1a" : "#E0E0E0"}
+        highlightColor={isDarkMode ? "#262626" : "#F5F5F5"}
         className="w-full h-[220px] block rounded-none"
       />
 
@@ -25,8 +25,8 @@ const SkeletonProfileDetails = () => {
         <div className="p-5">
           {/* Profile Picture */}
           <Skeleton
-            baseColor={isDarkMode ? "#1C233C" : "#E0E0E0"}
-            highlightColor={isDarkMode ? "#27334D" : "#F5F5F5"}
+            baseColor={isDarkMode ? "#1a1a1a" : "#E0E0E0"}
+            highlightColor={isDarkMode ? "#262626" : "#F5F5F5"}
             className="relative z-10 cursor-pointer w-36 h-36 rounded-full border-4 border-[#FEFFFE] dark:border-[#0A0E28] mb-4 overflow-hidden p-[1px]"
           />
 
@@ -35,15 +35,15 @@ const SkeletonProfileDetails = () => {
             <div className="flex flex-col items-start">
               <h3 className="text-xl font-bold flex items-center gap-1">
                 <Skeleton
-                  baseColor={isDarkMode ? "#1C233C" : "#E0E0E0"}
-                  highlightColor={isDarkMode ? "#27334D" : "#F5F5F5"}
+                  baseColor={isDarkMode ? "#1a1a1a" : "#E0E0E0"}
+                  highlightColor={isDarkMode ? "#262626" : "#F5F5F5"}
                   width={140}
                 />{" "}
               </h3>
               <span className="text-[#536471] dark:text-[#A0A0A0] text-[15px]">
                 <Skeleton
-                  baseColor={isDarkMode ? "#1C233C" : "#E0E0E0"}
-                  highlightColor={isDarkMode ? "#27334D" : "#F5F5F5"}
+                  baseColor={isDarkMode ? "#1a1a1a" : "#E0E0E0"}
+                  highlightColor={isDarkMode ? "#262626" : "#F5F5F5"}
                   width={60}
                 />
               </span>
@@ -58,8 +58,8 @@ const SkeletonProfileDetails = () => {
               className="flex items-center gap-1 text-[15px] text-[#536471] dark:text-[#A0A0A0] hover:underline"
             >
               <Skeleton
-                baseColor={isDarkMode ? "#1C233C" : "#E0E0E0"}
-                highlightColor={isDarkMode ? "#27334D" : "#F5F5F5"}
+                baseColor={isDarkMode ? "#1a1a1a" : "#E0E0E0"}
+                highlightColor={isDarkMode ? "#262626" : "#F5F5F5"}
                 width={100}
               />
             </Link>
@@ -69,8 +69,8 @@ const SkeletonProfileDetails = () => {
               className="flex items-center gap-1 text-[15px] text-[#536471] dark:text-[#A0A0A0] hover:underline"
             >
               <Skeleton
-                baseColor={isDarkMode ? "#1C233C" : "#E0E0E0"}
-                highlightColor={isDarkMode ? "#27334D" : "#F5F5F5"}
+                baseColor={isDarkMode ? "#1a1a1a" : "#E0E0E0"}
+                highlightColor={isDarkMode ? "#262626" : "#F5F5F5"}
                 width={100}
               />
             </Link>
@@ -78,8 +78,8 @@ const SkeletonProfileDetails = () => {
           {/* Description */}
           <p className="text-[15px] mb-3">
             <Skeleton
-              baseColor={isDarkMode ? "#1C233C" : "#E0E0E0"}
-              highlightColor={isDarkMode ? "#27334D" : "#F5F5F5"}
+              baseColor={isDarkMode ? "#1a1a1a" : "#E0E0E0"}
+              highlightColor={isDarkMode ? "#262626" : "#F5F5F5"}
               count={3}
             />
           </p>
@@ -87,22 +87,22 @@ const SkeletonProfileDetails = () => {
           <ul className="flex items-center gap-5">
             <div className="w-full">
               <Skeleton
-                baseColor={isDarkMode ? "#1C233C" : "#E0E0E0"}
-                highlightColor={isDarkMode ? "#27334D" : "#F5F5F5"}
+                baseColor={isDarkMode ? "#1a1a1a" : "#E0E0E0"}
+                highlightColor={isDarkMode ? "#262626" : "#F5F5F5"}
                 className="w-full"
               />
             </div>
             <div className="w-full">
               <Skeleton
-                baseColor={isDarkMode ? "#1C233C" : "#E0E0E0"}
-                highlightColor={isDarkMode ? "#27334D" : "#F5F5F5"}
+                baseColor={isDarkMode ? "#1a1a1a" : "#E0E0E0"}
+                highlightColor={isDarkMode ? "#262626" : "#F5F5F5"}
                 className="w-full"
               />
             </div>
             <div className="w-full">
               <Skeleton
-                baseColor={isDarkMode ? "#1C233C" : "#E0E0E0"}
-                highlightColor={isDarkMode ? "#27334D" : "#F5F5F5"}
+                baseColor={isDarkMode ? "#1a1a1a" : "#E0E0E0"}
+                highlightColor={isDarkMode ? "#262626" : "#F5F5F5"}
                 className="w-full"
               />
             </div>

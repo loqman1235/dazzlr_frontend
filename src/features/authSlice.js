@@ -99,6 +99,9 @@ const authSlice = createSlice({
       state.isSuccess = false;
       state.messages = [];
     },
+    updateUserInInitialState: (state, action) => {
+      state.user = action.payload; // Update the user in the initial state
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -182,4 +185,5 @@ const authSlice = createSlice({
   },
 });
 
+export const { updateUserInInitialState } = authSlice.actions;
 export default authSlice.reducer;

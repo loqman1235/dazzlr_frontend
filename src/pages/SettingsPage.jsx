@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
 import { BiChevronRight } from "react-icons/bi";
+import { useSelector } from "react-redux";
 
 const SettingsPage = () => {
+  const { user } = useSelector((state) => state.auth);
   return (
     <div className="w-full md:w-[60%] relative pb-20">
-      <div className="w-full z-20 p-5 border-b border-b-black/10 dark:border-b-white/10 bg-[#FEFFFE]/80 dark:bg-[#0A0E28]/80 backdrop-blur-lg sticky top-0">
+      <div className="w-full z-20 p-5 border-b border-b-black/10 dark:border-b-white/10 bg-[#FEFFFE]/80 dark:bg-[#101010]/80 backdrop-blur-lg sticky top-0">
         <h2 className="font-bold text-xl">Settings</h2>
       </div>
 
@@ -14,12 +16,12 @@ const SettingsPage = () => {
           <h3 className="mb-4 font-semibold text-lg">Profile</h3>
           <Link
             to="/settings/profile"
-            className="flex items-center justify-between p-4 bg-[#0A0E28]/5 dark:bg-white/5 hover:bg-[#0A0E28]/10 dark:hover:bg-white/10 rounded-lg text-[15px] dark:shadow transition"
+            className="flex items-center justify-between p-4 bg-[#101010]/5 dark:bg-white/5 hover:bg-[#101010]/10 dark:hover:bg-white/10 rounded-lg text-[15px] dark:shadow transition"
           >
             <p>Edit Profile</p>
             <div className="flex items-center gap-2 ">
               <span className="dark:text-[#A0A0A0] text-[#536471]">
-                Axel Djefafla
+                {user?.fullname}
               </span>
               <span className="dark:text-[#A0A0A0] text-[#536471]">
                 <BiChevronRight size={24} />
@@ -33,7 +35,7 @@ const SettingsPage = () => {
           <ul className="flex flex-col gap-1">
             <Link
               to="/settings/profile"
-              className="flex items-center justify-between p-4 bg-[#0A0E28]/5 dark:bg-white/5 hover:bg-[#0A0E28]/10 dark:hover:bg-white/10 rounded-lg text-[15px] dark:shadow transition"
+              className="flex items-center justify-between p-4 bg-[#101010]/5 dark:bg-white/5 hover:bg-[#101010]/10 dark:hover:bg-white/10 rounded-lg text-[15px] dark:shadow transition"
             >
               <p>Mutes</p>
               <div className="flex items-center gap-2 ">
@@ -44,7 +46,7 @@ const SettingsPage = () => {
             </Link>
             <Link
               to="/settings/profile"
-              className="flex items-center justify-between p-4 bg-[#0A0E28]/5 dark:bg-white/5 hover:bg-[#0A0E28]/10 dark:hover:bg-white/10 rounded-lg text-[15px] dark:shadow transition"
+              className="flex items-center justify-between p-4 bg-[#101010]/5 dark:bg-white/5 hover:bg-[#101010]/10 dark:hover:bg-white/10 rounded-lg text-[15px] dark:shadow transition"
             >
               <p>Blocks</p>
               <div className="flex items-center gap-2 ">
@@ -61,7 +63,7 @@ const SettingsPage = () => {
           <ul className="flex flex-col gap-1">
             <Link
               to="/settings/profile"
-              className="flex items-center justify-between p-4 bg-[#0A0E28]/5 dark:bg-white/5 hover:bg-[#0A0E28]/10 dark:hover:bg-white/10 rounded-lg text-[15px] dark:shadow transition"
+              className="flex items-center justify-between p-4 bg-[#101010]/5 dark:bg-white/5 hover:bg-[#101010]/10 dark:hover:bg-white/10 rounded-lg text-[15px] dark:shadow transition"
             >
               <p>Change Email</p>
               <div className="flex items-center gap-2 ">
@@ -72,7 +74,7 @@ const SettingsPage = () => {
             </Link>
             <Link
               to="/settings/profile"
-              className="flex items-center justify-between p-4 bg-[#0A0E28]/5 dark:bg-white/5 hover:bg-[#0A0E28]/10 dark:hover:bg-white/10 rounded-lg text-[15px] dark:shadow transition"
+              className="flex items-center justify-between p-4 bg-[#101010]/5 dark:bg-white/5 hover:bg-[#101010]/10 dark:hover:bg-white/10 rounded-lg text-[15px] dark:shadow transition"
             >
               <p>Change Password</p>
               <div className="flex items-center gap-2 ">

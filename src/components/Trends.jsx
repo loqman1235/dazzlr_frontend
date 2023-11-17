@@ -11,10 +11,11 @@ const trendsData = [
 
 const Trends = () => {
   return (
-    <div className="mb-10 bg-[#F6F9F8] dark:bg-white/5 p-5 rounded-2xl">
+    //  <div className="mb-10 bg-[#F6F9F8] dark:bg-white/5 p-5 rounded-2xl">
+    <div className="mb-12">
       {/* Header */}
       <div className="w-full flex items-center justify-between mb-5">
-        <h3 className="font-bold text-xl">Trending</h3>
+        <h3 className="font-bold text-xl">Hot Topics</h3>
         <Link
           to="/discover"
           className="text-[14px] text-[#1D9AF1] hover:underline"

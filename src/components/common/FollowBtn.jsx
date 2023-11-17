@@ -18,7 +18,6 @@ const FollowBtn = ({ userId, fullname }) => {
         "",
         { withCredentials: true }
       );
-      console.log(response.data, userId);
       setIsFollowed(response.data);
     } catch (error) {
       console.error(error);

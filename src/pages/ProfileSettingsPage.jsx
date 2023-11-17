@@ -2,15 +2,17 @@ import { BiArrowBack } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserThunk } from "../features/userSlice";
+import { getUserThunk, updateUserThunk } from "../features/userSlice";
 import { MoonLoader } from "react-spinners";
-import axios from "axios";
+import { toast } from "react-toastify";
 
 const ProfileSettingsPage = () => {
   const { user } = useSelector((state) => state.auth);
   const { userData, isLoading } = useSelector((state) => state.user);
+  const [avatar, setAvatar] = useState(null);
+  const [cover, setCover] = useState(null);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -32,25 +34,32 @@ const ProfileSettingsPage = () => {
     bio: Yup.string().max(200, "Bio must be 200 characters or less"),
   });
 
-  const handleUpdateProfile = async (values) => {
+  const handleUpdateProfile = async (values, { setSubmitting }) => {
     try {
       const formData = new FormData();
       formData.append("fullname", values.fullname);
       formData.append("bio", values.bio);
+      formData.append("userLocation", values.userLocation);
+      formData.append("website", values.website);
 
-      console.log(values);
-      // formData.append("avatar", values.avatar);
-      // formData.append("cover", values.cover);
+      if (avatar) {
+        formData.append("avatar", avatar);
+      }
 
-      // const response = await axios.put(
-      //   `${import.meta.env.VITE_BACKEND_URL}/api/users`,
-      //   formData,
-      //   { withCredentials: true }
-      // );
+      if (cover) {
+        formData.append("cover", cover);
+      }
 
-      // console.log(response.data);
+      const response = await dispatch(updateUserThunk(formData));
+
+      if (updateUserThunk.fulfilled.match(response)) {
+        toast.success(response.payload.message);
+        navigate(`/${userData?.userHandler}`);
+      }
     } catch (error) {
       console.error(error);
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -66,7 +75,7 @@ const ProfileSettingsPage = () => {
         </div>
       ) : (
         <div className="w-full md:w-[60%] relative pb-20">
-          <div className="w-full z-20 p-5 border-b border-b-black/10 dark:border-b-white/10 bg-[#FEFFFE]/80 dark:bg-[#0A0E28]/80 backdrop-blur-lg sticky top-0">
+          <div className="w-full z-20 p-5 border-b border-b-black/10 dark:border-b-white/10 bg-[#FEFFFE]/80 dark:bg-[#101010]/80 backdrop-blur-lg sticky top-0">
             <h2 className="font-bold text-xl flex items-center gap-4">
               {/* Go back */}
               <button onClick={handleGoBack}>
@@ -82,26 +91,44 @@ const ProfileSettingsPage = () => {
             {/* Preview */}
             <div className="w-full overflow-hidden">
               {/* Cover */}
-              <div className="bg-[#0A0E28]/10 dark:bg-white/10 w-full h-[180px] rounded-md overflow-hidden">
-                {userData?.cover && (
+              <div className="bg-[#101010]/10 dark:bg-white/10 w-full h-[180px] rounded-md overflow-hidden">
+                {cover === null ? (
+                  userData?.cover && (
+                    <img
+                      src={userData.cover.url}
+                      className="w-full h-full object-cover"
+                      onContextMenu={(e) => e.preventDefault()}
+                    />
+                  )
+                ) : (
                   <img
-                    src={userData.cover.url}
+                    src={URL.createObjectURL(cover)}
                     className="w-full h-full object-cover"
+                    onContextMenu={(e) => e.preventDefault()}
                   />
                 )}
               </div>
               {/* Profile details */}
               <div className="px-5 -mt-14 mb-10">
-                <div className="relative z-10 w-32 h-32 border-4 border-[#FEFFFE] bg-[#FEFFFE] dark:border-[#0A0E28] dark:bg-[#0A0E28] mb-4 p-[1px] rounded-full">
+                <div className="relative z-10 w-32 h-32 border-4 border-[#FEFFFE] bg-[#FEFFFE] dark:border-[#101010] dark:bg-[#101010] mb-4 p-[1px] rounded-full">
                   <div className="w-full h-full rounded-full overflow-hidden">
-                    <img
-                      src={
-                        userData?.avatar?.url
-                          ? userData.avatar.url
-                          : "/Avatar.svg"
-                      }
-                      className="w-full h-full object-cover"
-                    />
+                    {avatar === null ? (
+                      <img
+                        src={
+                          userData?.avatar?.url
+                            ? userData.avatar.url
+                            : "/Avatar.svg"
+                        }
+                        className="w-full h-full object-cover"
+                        onContextMenu={(e) => e.preventDefault()}
+                      />
+                    ) : (
+                      <img
+                        src={URL.createObjectURL(avatar)}
+                        className="w-full h-full object-cover"
+                        onContextMenu={(e) => e.preventDefault()}
+                      />
+                    )}
                   </div>
                 </div>
                 {/* Username and handler */}
@@ -118,17 +145,15 @@ const ProfileSettingsPage = () => {
               </div>
               <Formik
                 initialValues={{
-                  cover: null,
-                  avatar: null,
-                  country: userData?.location?.country || "",
-                  city: userData?.location?.city || "",
+                  userLocation: userData?.userLocation || "",
                   fullname: userData?.fullname || "",
                   bio: userData?.bio || "",
+                  website: userData?.website || "",
                 }}
                 validationSchema={validationSchema}
                 onSubmit={handleUpdateProfile}
               >
-                {({ isSubmitting, errors, setFieldValue }) => (
+                {({ isSubmitting, errors }) => (
                   <Form encType="multipart/form-data">
                     <div className="flex flex-col gap-2 mb-5">
                       <label
@@ -142,10 +167,7 @@ const ProfileSettingsPage = () => {
                         name="cover"
                         id="cover"
                         className="input"
-                        onChange={(e) => {
-                          e.preventDefault();
-                          setFieldValue("cover", e.currentTarget.files[0]);
-                        }}
+                        onChange={(e) => setCover(e.target.files[0])}
                       />
                     </div>
 
@@ -161,55 +183,29 @@ const ProfileSettingsPage = () => {
                         name="avatar"
                         id="avatar"
                         className="input"
-                        onChange={(e) => {
-                          e.preventDefault();
-                          setFieldValue("avatar", e.currentTarget.files[0]);
-                        }}
+                        onChange={(e) => setAvatar(e.target.files[0])}
                       />
                     </div>
 
-                    <div className="flex items-center gap-5">
-                      <div className="flex flex-col gap-2 mb-5">
-                        <label
-                          className="text-sm font-medium capitalize"
-                          htmlFor="country"
-                        >
-                          Country
-                        </label>
-                        <Field
-                          type="text"
-                          name="country"
-                          id="country"
-                          className="input"
-                        />
-                        <ErrorMessage
-                          name="country"
-                          component="div"
-                          className="text-red-500 text-sm"
-                        />
-                      </div>
-
-                      <div className="flex flex-col gap-2 mb-5">
-                        <label
-                          className="text-sm font-medium capitalize"
-                          htmlFor="city"
-                        >
-                          City
-                        </label>
-                        <Field
-                          type="text"
-                          name="city"
-                          id="city"
-                          className="input"
-                        />
-                        <ErrorMessage
-                          name="city"
-                          component="div"
-                          className="text-red-500 text-sm"
-                        />
-                      </div>
+                    <div className="flex flex-col gap-2 mb-5">
+                      <label
+                        className="text-sm font-medium capitalize"
+                        htmlFor="userLocation"
+                      >
+                        Location
+                      </label>
+                      <Field
+                        type="text"
+                        name="userLocation"
+                        id="userLocation"
+                        className="input"
+                      />
+                      <ErrorMessage
+                        name="userLocation"
+                        component="div"
+                        className="text-red-500 text-sm"
+                      />
                     </div>
-
                     <div className="flex flex-col gap-2 mb-5">
                       <label
                         className="text-sm font-medium capitalize"
@@ -225,6 +221,26 @@ const ProfileSettingsPage = () => {
                       />
                       <ErrorMessage
                         name="fullname"
+                        component="div"
+                        className="text-red-500 text-sm"
+                      />
+                    </div>
+
+                    <div className="flex flex-col gap-2 mb-5">
+                      <label
+                        className="text-sm font-medium capitalize"
+                        htmlFor="website"
+                      >
+                        Website
+                      </label>
+                      <Field
+                        type="text"
+                        name="website"
+                        id="website"
+                        className="input"
+                      />
+                      <ErrorMessage
+                        name="website"
                         component="div"
                         className="text-red-500 text-sm"
                       />
@@ -254,8 +270,9 @@ const ProfileSettingsPage = () => {
                     <button
                       type="submit"
                       className="btn btn-primary text-base px-8 py-2"
+                      disabled={isSubmitting}
                     >
-                      Save
+                      {isSubmitting ? "Saving..." : "Save"}
                     </button>
                   </Form>
                 )}

@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Post from "../components/Post";
 import VerifiedBadge from "../components/common/VerifiedBadge";
 import {
@@ -29,9 +29,30 @@ const ProfilePage = () => {
   const { isDarkMode } = useSelector((state) => state.theme);
   const { userData, isLoading } = useSelector((state) => state.user);
   const { isFollowed } = useSelector((state) => state.follow);
+  const [conversation, setConversation] = useState(null);
+  const navigate = useNavigate();
 
   const { userHandler } = useParams();
   const dispatch = useDispatch();
+
+  const handleStartChat = async () => {
+    try {
+      const res = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/convos`,
+        { secondUser: userData?._id },
+        { withCredentials: true }
+      );
+      setConversation(res.data.convo);
+    } catch (error) {
+      console.error("Error starting a conversation:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (conversation) {
+      navigate(`/messages/${conversation._id}`);
+    }
+  }, [conversation, navigate]);
 
   useEffect(() => {
     dispatch(fetchPostsAsync(userHandler));
@@ -63,12 +84,13 @@ const ProfilePage = () => {
           {/* Profile Details */}
 
           <div className="w-full">
-            <div className="w-full h-[220px] bg-[#0A0E28]/10 dark:bg-white/10">
+            <div className="w-full h-[220px] bg-[#101010]/10 dark:bg-white/10">
               {userData?.cover && (
                 <img
                   src={userData?.cover.url}
                   alt="cover"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover select-none"
+                  onContextMenu={(e) => e.preventDefault()}
                 />
               )}
             </div>
@@ -76,17 +98,18 @@ const ProfilePage = () => {
             <div className="w-full -mt-24 border-b border-b-black/5 dark:border-b-white/5">
               <div className="p-5">
                 {/* Profile Picture */}
-                <div className="relative z-10 cursor-pointer w-36 h-36 rounded-full border-4 border-[#FEFFFE] bg-[#FEFFFE] dark:border-[#0A0E28] dark:bg-[#0A0E28] mb-4 p-[1px]">
+                <div className="relative z-10 cursor-pointer w-36 h-36 rounded-full border-4 border-[#FEFFFE] bg-[#FEFFFE] dark:border-[#101010] dark:bg-[#101010] mb-4 p-[1px]">
                   <div className="w-full h-full rounded-full overflow-hidden">
                     <img
                       src={userData?.avatar.url}
                       alt={`${userData?.fullname}`}
                       className="w-full h-full object-cover"
+                      onContextMenu={(e) => e.preventDefault()}
                     />
                   </div>
-                  <div className="absolute right-1 bottom-0 z-20 bg-[#FEFFFE] dark:bg-[#0A0E28] p-px rounded-full">
+                  <div className="select-none absolute right-1 bottom-0 z-20 bg-[#FEFFFE] dark:bg-[#101010] p-1 rounded-full">
                     {userData?.isVerified && (
-                      <VerifiedBadge width="w-7" height="h-7" />
+                      <VerifiedBadge size="big" type={userData?.accountType} />
                     )}
                   </div>
                 </div>
@@ -97,7 +120,7 @@ const ProfilePage = () => {
                       {userData?.fullname}
                     </h3>
                     <div className="flex items-center gap-2">
-                      <span className="text-[#536471] dark:text-[#A0A0A0] text-[15px] ">
+                      <span className="text-[#536471] dark:text-[#b19f9f] text-[15px] ">
                         {userData?.userHandler}
                       </span>
                       {userData?.following.some(
@@ -115,9 +138,15 @@ const ProfilePage = () => {
                       <button className="btn-outline px-2">
                         <BiDotsHorizontalRounded size={20} />
                       </button>
-                      <button className="btn-outline px-2">
-                        <BiEnvelope size={20} />
-                      </button>
+                      {userData?.accountType !== "business" && (
+                        <button
+                          className="btn-outline px-2"
+                          onClick={handleStartChat}
+                        >
+                          <EnvelopeIcon className="w-5 h-5 stroke-2" />
+                        </button>
+                      )}
+
                       <FollowBtn
                         userId={userData?._id}
                         fullname={userData?.fullname}
@@ -163,14 +192,15 @@ const ProfilePage = () => {
                   {userData?.userLocation && (
                     <li className="text-[#536471] dark:text-[#A0A0A0] text-[15x] flex items-center gap-1 capitalize">
                       <MapPinIcon className="w-4 h-4 stroke-2" />{" "}
-                      {userData?.userLocation?.city},
-                      {userData?.userLocation?.country}
+                      {userData?.userLocation}
                     </li>
                   )}
                   {userData?.website && (
                     <li className="text-[#536471] dark:text-[#A0A0A0] text-[15x] flex items-center gap-1 lowercase">
                       <LinkIcon className="w-4 h-4 stroke-2" />{" "}
-                      {userData.website}
+                      <a href={userData.website} className="link">
+                        {userData.website}
+                      </a>
                     </li>
                   )}
                 </ul>

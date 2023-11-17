@@ -8,7 +8,7 @@ const RightSidebar = () => {
   return (
     <div className="w-[40%] h-auto border-l-black/10 dark:border-l-white/10 border-l-[0.1px] hidden md:block">
       <div className="p-5 sticky top-0">
-        <Leaderboard />
+        {/* <Leaderboard /> */}
         <Trends />
         <SuggestedProfiles />
         <Footer />

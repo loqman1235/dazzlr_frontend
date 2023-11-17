@@ -31,7 +31,7 @@ const FollowingPage = () => {
         </div>
       ) : (
         <div className="w-full md:w-[60%] relative pb-20">
-          <div className="w-full z-20 p-5 border-b border-b-black/10 dark:border-b-white/10 bg-[#FEFFFE]/80 dark:bg-[#0A0E28]/80 backdrop-blur-lg sticky top-0">
+          <div className="w-full z-20 p-5 border-b border-b-black/10 dark:border-b-white/10 bg-[#FEFFFE]/80 dark:bg-[#101010]/80 backdrop-blur-lg sticky top-0">
             <h2 className="font-bold text-xl flex items-center gap-4">
               {/* Go back */}
               <button onClick={handleGoBack}>
@@ -62,7 +62,12 @@ const FollowingPage = () => {
                         className="text-[14px] font-bold flex items-center gap-1 hover:underline"
                       >
                         {followinUser?.fullname}{" "}
-                        {followinUser?.isVerified && <VerifiedBadge />}
+                        {followinUser?.isVerified && (
+                          <VerifiedBadge
+                            size="small"
+                            type={followinUser?.accountType}
+                          />
+                        )}
                       </Link>
                       <div className="flex items-center gap-2">
                         <span className="text-[#536471] dark:text-[#A0A0A0] text-[15px] ">

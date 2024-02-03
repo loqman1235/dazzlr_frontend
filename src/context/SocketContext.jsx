@@ -8,7 +8,7 @@ const SocketProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    const newSocket = io(BACKEND_URL, {withCredentials: true});
+    const newSocket = io(BACKEND_URL);
     setSocket(newSocket);
 
     newSocket.on("connect", () => {

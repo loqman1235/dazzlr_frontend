@@ -120,7 +120,7 @@ const ProfilePage = () => {
                       {userData?.fullname}
                     </h3>
                     <div className="flex items-center gap-2">
-                      <span className="text-[#536471] dark:text-[#b19f9f] text-[15px] ">
+                      <span className="text-[#536471] dark:text-[#A0A0A0] text-[15px] ">
                         {userData?.userHandler}
                       </span>
                       {userData?.following.some(
